@@ -4,10 +4,10 @@ import '../styles/global.css';
 const { title = "Rekha's Reflections" } = Astro.props;
 
 const navLinks = [
-  { href: '/', label: 'blog', icon: '♥' },
-  { href: '/about', label: 'about', icon: '♣' },
-  { href: '/readings', label: 'readings', icon: '♦' },
-  { href: '/contact', label: 'contact', icon: '♠' },
+  { href: '/rekha-blog/', label: 'blog', icon: '♥' },
+  { href: '/rekha-blog/about', label: 'about', icon: '♣' },
+  { href: '/rekha-blog/readings', label: 'readings', icon: '♦' },
+  { href: '/rekha-blog/contact', label: 'contact', icon: '♠' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -26,7 +26,7 @@ const currentPath = Astro.url.pathname;
       <aside class="sidebar">
         <!-- Avatar: change the letters to your initials -->
         <div>
-          <img src="/bio.png" alt="rekha" class="avatar" />
+          <img src="/rekha-blog/bio.png" alt="rekha" class="avatar" />
           <!-- Change this to your name -->
           <p class="bio-name">Rekha's Reflections</p>
         </div>
