@@ -1,18 +1,14 @@
 ---
 import '../styles/global.css';
-
 const { title = "Rekha's Reflections" } = Astro.props;
-
 const navLinks = [
   { href: '/', label: 'blog', icon: '♥' },
   { href: '/about', label: 'about', icon: '♣' },
   { href: '/readings', label: 'readings', icon: '♦' },
   { href: '/contact', label: 'contact', icon: '♠' },
 ];
-
 const currentPath = Astro.url.pathname;
 ---
-
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -21,40 +17,91 @@ const currentPath = Astro.url.pathname;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   </head>
   <body>
-    <div class="blog-wrap">
 
+    <!-- Mobile header (hidden on desktop) -->
+    <header class="mobile-header">
+      <div class="mobile-header-inner">
+        <div class="mobile-brand">
+          <img src="/bio.png" alt="rekha" class="mobile-avatar" />
+          <span class="mobile-title">Rekha's Reflections</span>
+        </div>
+        <button class="hamburger" id="hamburger" aria-label="Open menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile slide-out menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <button class="mobile-menu-close" id="menuClose">✕</button>
+      <nav class="mobile-nav">
+        {navLinks.map(link => (
+          <a href={link.href} class={`mobile-nav-link ${currentPath === link.href ? 'active' : ''}`}>
+            <span>{link.icon}</span> {link.label}
+          </a>
+        ))}
+      </nav>
+    </div>
+    <div class="mobile-overlay" id="overlay"></div>
+
+    <div class="blog-wrap">
+      <!-- Desktop sidebar (hidden on mobile) -->
       <aside class="sidebar">
-        <!-- Avatar: change the letters to your initials -->
         <div>
-          <img src="bio.png" alt="rekha" class="avatar" />
-          <!-- Change this to your name -->
+          <img src="/bio.png" alt="rekha" class="avatar" />
           <p class="bio-name">Rekha's Reflections</p>
         </div>
-
-        <!-- Change this blurb to whatever you like -->
-        <div class="bio-blurb">
-          Writer, explorer, mystic.
-        </div>
-
+        <div class="bio-blurb">Writer, explorer, mystic.</div>
         <nav>
           <p class="nav-label">Menu</p>
           {navLinks.map(link => (
-            <a
-              href={link.href}
-              class={`nav-link ${currentPath === link.href ? 'active' : ''}`}
-            >
-              <span>{link.icon}</span>
-              {link.label}
+            <a href={link.href} class={`nav-link ${currentPath === link.href ? 'active' : ''}`}>
+              <span>{link.icon}</span> {link.label}
             </a>
           ))}
         </nav>
         <p class="sidebar-footer">© 2026 Rekha's Reflections</p>
       </aside>
 
-      <main>
-        <slot />
-      </main>
+      <!-- Main content -->
+      <div class="main-wrap">
+        <main>
+          <slot />
+        </main>
 
+        <!-- Footer -->
+        <footer class="site-footer">
+          <div class="footer-links">
+            <a href="https://substack.com/@rekhasreflections" target="_blank" rel="noopener">
+              📝 Substack
+            </a>
+            <a href="https://www.youtube.com/@rekhasreflections" target="_blank" rel="noopener">
+              ▶️ YouTube
+            </a>
+          </div>
+          <p class="footer-copy">© 2026 Rekha's Reflections</p>
+        </footer>
+      </div>
     </div>
+
+    <script>
+      const hamburger = document.getElementById('hamburger');
+      const menu = document.getElementById('mobileMenu');
+      const overlay = document.getElementById('overlay');
+      const close = document.getElementById('menuClose');
+
+      function openMenu() {
+        menu.classList.add('open');
+        overlay.classList.add('open');
+      }
+      function closeMenu() {
+        menu.classList.remove('open');
+        overlay.classList.remove('open');
+      }
+
+      hamburger.addEventListener('click', openMenu);
+      close.addEventListener('click', closeMenu);
+      overlay.addEventListener('click', closeMenu);
+    </script>
   </body>
 </html>
