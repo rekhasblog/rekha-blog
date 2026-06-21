@@ -277,3 +277,58 @@ main {
 .book-button:hover {
   opacity: 0.85;
 }
+
+@media (max-width: 768px) {
+  .blog-wrap {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    min-width: unset;
+    height: auto;
+    position: static;
+    padding: 24px 20px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
+
+  .bio-name {
+    text-align: left;
+  }
+
+  .bio-blurb {
+    display: none;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .sidebar-footer {
+    width: 100%;
+    text-align: center;
+  }
+
+  .feed {
+    padding: 24px 16px;
+  }
+
+  .post-body {
+    padding: 24px 16px;
+  }
+
+  .content-card {
+    padding: 24px 20px;
+  }
+}
