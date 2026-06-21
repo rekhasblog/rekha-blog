@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Readings">
+  <div class="feed">
+    <div class="content-card">
+      <div class="post-content">
+<p>My intuitive readings are based on cardology. Using your birth date, I look into your cardology chart and read intuitively from there, following what is most relevant to you and your query. 
+<p>
+No two readings are the same; each session unfolds based on where you are and what you're seeking clarity on.
+</p>
+
+        <div class="readings-pricing">
+          <div class="reading-tier">
+            <div class="reading-header">
+              <span class="reading-name">Mini Reading</span>
+              <span class="reading-price">$50</span>
+            </div>
+            <span class="reading-duration">30 minutes · via Zoom</span>
+          </div>
+          <div class="reading-tier">
+            <div class="reading-header">
+              <span class="reading-name">Full Reading</span>
+              <span class="reading-price">$80</span>
+            </div>
+            <span class="reading-duration">60 minutes · via Zoom</span>
+          </div>
+          <div class="reading-tier">
+            <div class="reading-header">
+              <span class="reading-name">Deep Dive</span>
+              <span class="reading-price">$120</span>
+            </div>
+            <span class="reading-duration">90 minutes · via Zoom</span>
+          </div>
+        </div>
+
+        <hr class="readings-divider" />
+       <div class="book-cta">
+  <a href="https://calendly.com/rekhasreflections" target="_blank" rel="noopener" class="book-button">
+    Book Your Reading →
+  </a>
+</div>
+
+      </div>
+    </div>
+  </div>
+</BaseLayout>
+
+<style>
+  .readings-pricing {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+  }
+
+  .reading-tier {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--border-color, #e5e5e5);
+    border-radius: 8px;
+  }
+
+  .reading-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  .reading-name {
+    font-weight: 600;
+    font-size: 1rem;
+  }
+
+  .reading-price {
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .reading-duration {
+    font-size: 0.85rem;
+    opacity: 0.65;
+  }
+
+  .readings-divider {
+    border: none;
+    border-top: 1px solid var(--border-color, #e5e5e5);
+    margin: 2rem 0;
+  }
+
+  .booking-note {
+    font-size: 0.9rem;
+    opacity: 0.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .booking-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .form-group label {
+    font-size: 0.875rem;
+    font-weight: 600;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--border-color, #e5e5e5);
+    border-radius: 6px;
+    font-size: 0.95rem;
+    background: transparent;
+    color: inherit;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .form-group textarea {
+    resize: vertical;
+  }
+
+  .paypal-note {
+    background: var(--card-bg, #f9f9f9);
+    border: 1px solid var(--border-color, #e5e5e5);
+    border-radius: 8px;
+    padding: 1rem 1.25rem;
+  }
+
+  .paypal-note p {
+    margin: 0 0 0.5rem 0;
+    font-size: 0.9rem;
+  }
+
+  .paypal-button {
+    display: inline-block;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: #003087;
+  }
+
+  .paypal-button:hover {
+    text-decoration: underline;
+  }
+
+  .submit-button {
+    align-self: flex-start;
+    padding: 0.65rem 1.5rem;
+    border: none;
+    border-radius: 6px;
+    background: var(--accent-color, #333);
+    color: #fff;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+
+  .submit-button:hover {
+    opacity: 0.85;
+  }
+</style>

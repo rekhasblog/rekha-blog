@@ -1,17 +1,35 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
 
+const postFiles = import.meta.glob('./blog/*.md', { eager: true });
+const posts = Object.values(postFiles);
+
+// Sort posts newest first
+const sorted = posts.sort((a, b) =>
+  new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+);
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="rekha's blog">
+  <div class="feed">
+    <p class="feed-title">Recent posts</p>
+
+    {sorted.map(post => (
+      <a href={post.url} class="post-card">
+        {post.frontmatter.tag && (
+          <p class="post-tag">{post.frontmatter.tag}</p>
+        )}
+        <h2 class="post-title">{post.frontmatter.title}</h2>
+        {post.frontmatter.excerpt && (
+          <p class="post-excerpt">{post.frontmatter.excerpt}</p>
+        )}
+        <div class="post-meta">
+          <span>{post.frontmatter.date}</span>
+          {post.frontmatter.readTime && (
+            <span>{post.frontmatter.readTime}</span>
+          )}
+        </div>
+      </a>
+    ))}
+  </div>
+</BaseLayout>

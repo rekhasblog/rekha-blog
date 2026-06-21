@@ -1,0 +1,60 @@
+---
+import '../styles/global.css';
+
+const { title = "Rekha's Reflections" } = Astro.props;
+
+const navLinks = [
+  { href: '/', label: 'blog', icon: '♥' },
+  { href: '/about', label: 'about', icon: '♣' },
+  { href: '/readings', label: 'readings', icon: '♦' },
+  { href: '/contact', label: 'contact', icon: '♠' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
+  <body>
+    <div class="blog-wrap">
+
+      <aside class="sidebar">
+        <!-- Avatar: change the letters to your initials -->
+        <div>
+          <img src="/bio.png" alt="rekha" class="avatar" />
+          <!-- Change this to your name -->
+          <p class="bio-name">Rekha's Reflections</p>
+        </div>
+
+        <!-- Change this blurb to whatever you like -->
+        <div class="bio-blurb">
+          Writer, explorer, mystic.
+        </div>
+
+        <nav>
+          <p class="nav-label">Menu</p>
+          {navLinks.map(link => (
+            <a
+              href={link.href}
+              class={`nav-link ${currentPath === link.href ? 'active' : ''}`}
+            >
+              <span>{link.icon}</span>
+              {link.label}
+            </a>
+          ))}
+        </nav>
+        <p class="sidebar-footer">© 2026 Rekha's Reflections</p>
+      </aside>
+
+      <main>
+        <slot />
+      </main>
+
+    </div>
+  </body>
+</html>
