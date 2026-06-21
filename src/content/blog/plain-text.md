@@ -1,10 +1,7 @@
 ---
-layout: ../../layouts/BaseLayout.astro
 title: "Why I switched back to plain text files"
-date: "May 28, 2025"
-tag: Tools
-excerpt: After years of Notion, Obsidian, and a dozen other apps, a folder of markdown files has become the most reliable system I own.
-readTime: 4 min read
+description: "A short description of your files"
+pubDate: 2024-01-15
 ---
 
 I've tried most of the note-taking apps. Notion for a year, Obsidian for six months, Roam briefly, Bear on and off since 2018. Each one started as a revelation and ended as a chore.
