@@ -1,3 +1,84 @@
 ---
-return Astro.redirect('/');
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const mostRecent = sortedPosts[0];
+const olderPosts = sortedPosts.slice(1);
+const categories = [...new Set(allPosts.map(post => post.data.category).filter(Boolean))];
 ---
+
+<BaseLayout title="Blog | Rekha's Reflections">
+  <div class="feed">
+
+    <!-- Search -->
+    <div class="content-card" style="margin-bottom: 16px; padding: 16px 22px; min-height: unset;">
+      <input
+        type="text"
+        id="search-input"
+        placeholder="search posts..."
+        style="width:100%; border:none; background:transparent; font-family:var(--font-body); font-size:14px; color:var(--color-text); outline:none;"
+      />
+    </div>
+
+    <!-- Categories -->
+    {categories.length > 0 && (
+      <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:20px;">
+        {categories.map(cat => (
+          <a href={`/blog/category/${cat.toLowerCase()}`}
+            style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#197ca4; background:#f0f6fa; padding:4px 10px; border-radius:20px; text-decoration:none;">
+            {cat}
+          </a>
+        ))}
+        <a href="/blog/archive"
+          style="font-size:11px; letter-spacing:0.06em; text-transform:uppercase; color:#a09890; background:#f5f3ef; padding:4px 10px; border-radius:20px; text-decoration:none;">
+          archive
+        </a>
+      </div>
+    )}
+
+    <!-- Posts -->
+    <div id="posts-list">
+      {sortedPosts.map((post, i) => (
+        <a href={`/blog/${post.slug}`} class="post-card search-item"
+          data-title={post.data.title.toLowerCase()}
+          data-category={(post.data.category || '').toLowerCase()}>
+          <div class="post-tag">{post.data.category}</div>
+          <div class="post-title">{post.data.title}</div>
+          {post.data.description && <div class="post-excerpt">{post.data.description}</div>}
+          <div class="post-meta">
+            <span>{post.data.pubDate.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</span>
+            {i === 0 && <span style="color:#197ca4;">latest</span>}
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <!-- No results -->
+    <p id="no-results" style="display:none; color:var(--color-muted); font-size:14px; margin-top:16px;">
+      no posts found.
+    </p>
+
+  </div>
+</BaseLayout>
+
+<script>
+  const input = document.getElementById('search-input') as HTMLInputElement;
+  const items = document.querySelectorAll('.search-item');
+  const noResults = document.getElementById('no-results');
+
+  input.addEventListener('input', () => {
+    const query = input.value.toLowerCase();
+    let visible = 0;
+    items.forEach(item => {
+      const el = item as HTMLElement;
+      const title = el.dataset.title || '';
+      const category = el.dataset.category || '';
+      const show = title.includes(query) || category.includes(query);
+      el.style.display = show ? 'block' : 'none';
+      if (show) visible++;
+    });
+    if (noResults) noResults.style.display = visible === 0 ? 'block' : 'none';
+  });
+</script>

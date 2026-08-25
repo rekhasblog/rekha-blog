@@ -1,35 +1,193 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-
-const postFiles = import.meta.glob('./blog/*.md', { eager: true });
-const posts = Object.values(postFiles);
-
-// Sort posts newest first
-const sorted = posts.sort((a, b) =>
-  new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
-);
 ---
 
-<BaseLayout title="rekha's blog">
-  <div class="feed">
-    <p class="feed-title">Recent posts</p>
+<BaseLayout title="Rekha's Reflections — Tarot & Cardology">
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Tarot &amp; Cardology</p>
+      <h1 class="hero__title" data-reflect>Welcome to Rekha's Reflections</h1>
+      <span class="hero__mirror" aria-hidden="true">Welcome to Rekha's Reflections</span>
 
-    {sorted.map(post => (
-      <a href={post.url} class="post-card">
-        {post.frontmatter.tag && (
-          <p class="post-tag">{post.frontmatter.tag}</p>
-        )}
-        <h2 class="post-title">{post.frontmatter.title}</h2>
-        {post.frontmatter.excerpt && (
-          <p class="post-excerpt">{post.frontmatter.excerpt}</p>
-        )}
-        <div class="post-meta">
-          <span>{post.frontmatter.date}</span>
-          {post.frontmatter.readTime && (
-            <span>{post.frontmatter.readTime}</span>
-          )}
-        </div>
-      </a>
-    ))}
-  </div>
+      <div class="hero__blurb">
+        <p>
+          I read tarot and cardology to help you hear what you already know. Every
+          session is built to steady your own intuition and make your inner voice
+          clear again &mdash; not to hand you someone else's script. My goal is
+          simple: you walk away trusting yourself.
+        </p>
+        <p>
+          My mark is a mirror on purpose. I don't hand down answers &mdash; I
+          reflect back the energy and wisdom you already carry, so you can finally
+          see it clearly. Think of me as a vessel, not an oracle.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUOTE STRIP ============ -->
+  <section class="quote-strip">
+    <p class="quote-strip__text">
+     Until you make the unconscious conscious, it will direct your life and you will call it fate.<br>
+<i>C.G. Jung</i>
+    </p>
+  </section>
+
+  <script>
+    const track = document.getElementById('testimonial-track');
+    const prev = document.getElementById('testimonial-prev');
+    const next = document.getElementById('testimonial-next');
+
+    const scrollByCard = (dir: number) => {
+      const card = track?.querySelector('.testimonial') as HTMLElement | null;
+      if (!track || !card) return;
+      const amount = card.offsetWidth + 24;
+      track.scrollBy({ left: dir * amount, behavior: 'smooth' });
+    };
+
+    prev?.addEventListener('click', () => scrollByCard(-1));
+    next?.addEventListener('click', () => scrollByCard(1));
+  </script>
+
+  <style>
+    /* ---------- Hero ---------- */
+    .hero {
+      padding-block: clamp(4rem, 12vw, 7rem) clamp(3rem, 8vw, 5rem);
+      text-align: center;
+    }
+
+    .hero__title {
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      margin-block: 0.6rem 0;
+      color: var(--parchment);
+    }
+
+    /* Signature element: the headline reflects itself, mirror-in-water style */
+    .hero__mirror {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 500;
+      font-size: clamp(2.2rem, 6vw, 4rem);
+      line-height: 1.15;
+      color: var(--parchment);
+      transform: scaleY(-1);
+      transform-origin: top;
+      opacity: 0.22;
+      -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 70%);
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.55), transparent 70%);
+      margin-top: -0.1rem;
+      user-select: none;
+    }
+
+    .hero__blurb {
+      max-width: 46rem;
+      margin-inline: auto;
+      margin-top: clamp(1.5rem, 4vw, 2.5rem);
+      text-align: left;
+    }
+
+    .hero__blurb p {
+      color: var(--parchment-dim);
+      font-size: 1.05rem;
+    }
+
+    .hero__blurb p + p {
+      margin-top: 1rem;
+    }
+
+    /* ---------- Testimonials ---------- */
+    .testimonials {
+      padding-block: clamp(2.5rem, 6vw, 4rem);
+    }
+
+    .testimonials h2 {
+      font-size: clamp(1.6rem, 3vw, 2.1rem);
+      margin-top: 0.4rem;
+    }
+
+    .testimonials__track {
+      display: flex;
+      gap: 1.5rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 1.75rem var(--gutter) 0.5rem;
+      margin-top: 0.5rem;
+      scrollbar-width: none;
+    }
+
+    .testimonials__track::-webkit-scrollbar {
+      display: none;
+    }
+
+    .testimonial {
+      flex: 0 0 min(90%, 26rem);
+      scroll-snap-align: start;
+      background: var(--ink-raised);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      margin: 0;
+    }
+
+    .testimonial p {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      color: var(--parchment);
+      margin: 0 0 1rem;
+    }
+
+    .testimonial cite {
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--silver);
+    }
+
+    .testimonials__controls {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .testimonials__controls button {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--parchment);
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .testimonials__controls button:hover,
+    .testimonials__controls button:focus-visible {
+      border-color: var(--rose-dim);
+      color: var(--rose);
+    }
+
+    /* ---------- Quote strip ---------- */
+    .quote-strip {
+      position: relative;
+      min-height: clamp(18rem, 40vw, 26rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: clamp(2.5rem, 6vw, 4rem);
+      background-color: #f5efe2; /* light/cream, solid color instead of image */
+    }
+
+    .quote-strip__text {
+      position: relative;
+      z-index: 1;
+      max-width: 42rem;
+      margin: 0;
+      padding-inline: var(--gutter);
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 4vw, 2.3rem);
+      line-height: 1.35;
+      color: #2b2620; /* dark ink tone for contrast on cream */
+    }
+  </style>
 </BaseLayout>

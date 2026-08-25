@@ -1,0 +1,21 @@
+to edit locally & preview locally at localhost:4321 - 
+
+cd my-blog
+npm run dev
+
+done - 
+Ctrl + C to stop the server
+
+
+Cloudflare Deploy (changes to live site) - 
+cd my-blog
+npm run build
+npx wrangler pages deploy dist --project-name blog
+
+
+
+**
+npm run build
+npx wrangler pages deploy dist --project-name blog
+
+
