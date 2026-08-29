@@ -1,14 +1,40 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SplitSection from "../components/SplitSection.astro";
+import { site } from "../data/site";
 ---
 
-<BaseLayout title="about">
-  <div class="feed">
-    <div class="content-card">
-      <h1 class="post-title">Rekha</h1>
-      <div class="post-content">
-        <p>Write whatever you like here...</p>
-      </div>
+<BaseLayout title="About Me">
+  <SplitSection eyebrow="Rekha (ray-ka)">
+    <p slot="sidebar">
+ <p slot="sidebar">
+Reader, writer, mystic.<br>
+    </p>
+
+    <div class="post-body">
+      <p>
+       I've been drawn to spirituality for as long as I can remember. Tarot and the cards have been companions on my path for more than a decade, but my relationship with them has changed over time. What began as a way to understand the unknown became a way of understanding myself.
+<p>
+There was a point in my life when that understanding was deeply tested. I went through a Dark Night of the Soul, a period when my coping strategies and belief system came crumbling down. I was forced to face my deepest fears on my own.
+<p>
+That experience changed the way I see spirituality. I came out of it knowing I am capable of facing anything on my own and thriving back to joy, love, and peace. This is the core foundation of what I bring to my work.
+<p>
+I don't see intuition as something that a reader offers you so you know what to do or what will happen next. I see intuition as a powerful force within you, that a reader brings out in you. The cards can reveal patterns, possibilities and blind spots we may not have considered. Sometimes they confirm what we already know. Sometimes they show us something completely unexpected.
+<p>
+Either way, the purpose is not to give your power away. It is to give you more information with which to make your own choices.
+</p>
+<p>
+<h2>How I Work</h2>
+My readings blend tarot and playing cards with intuitive insight.
+<p>
+I bring curiosity, honesty, and deep presence to the reading. I won't tell you that something is destined to happen, and I won't tell you to make a decision based solely on what comes through in a reading. Your life is your creation and belongs to you.
+<p>
+Instead, I want you to leave with a clearer sense of what you're navigating, and a stronger connection to your own ability to move through it.
+<p>
+My background in trauma-informed counseling also influences the way I hold space. I understand that our patterns don't appear out of nowhere, and that sometimes the things we most want clarity around are connected to much deeper experiences. I approach that gently, without assuming that every question needs to be fixed or explained.
+<p>
+Ultimately, my work is about helping you remember your own power.
+</p>
     </div>
-  </div>
+  </SplitSection>
 </BaseLayout>

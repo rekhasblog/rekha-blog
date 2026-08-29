@@ -1,0 +1,20 @@
+Edit locally & preview:
+
+powershell
+cd my-blog
+npm run dev
+
+
+done - 
+Ctrl + C to stop the server
+
+
+Deploy to live site:
+
+powershell
+cd my-blog
+npm run build
+npx wrangler pages deploy dist --project-name blog --branch main
+
+
+

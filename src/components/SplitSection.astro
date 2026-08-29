@@ -1,0 +1,18 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title: string;
+}
+const { eyebrow, title } = Astro.props;
+---
+
+<section class="split wrap">
+  <div class="split__sidebar">
+    {eyebrow && <span class="eyebrow">{eyebrow}</span>}
+    <h2>{title}</h2>
+    <slot name="sidebar" />
+  </div>
+  <div class="split__main">
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SplitSection from "../components/SplitSection.astro";
+import { site } from "../data/site";
+import { offerings } from "../data/offerings";
+---
+
+<BaseLayout title="Offerings">
+  <SplitSection eyebrow="Offerings">
+    <p slot="sidebar">
+      Give the shop a call or stop in and we'll find you a time.<br>
+	  No online bookings.
+    </p>
+    <a slot="sidebar" href={`tel:${site.phone.replace(/[^\d+]/g, "")}`} class="btn btn-outline" style="margin-top: 8px;">
+      Call {site.phoneDisplay}
+    </a>
+
+    <div class="offerings-grid">
+      {offerings.map((o) => (
+        <div class="offering-card card-cut-sm">
+          <div class="offering-card__head">
+            <h3 class="offering-card__title">{o.title}</h3>
+            <span class="offering-card__price">{o.price}</span>
+          </div>
+          <span class="offering-card__duration">{o.duration}</span>
+          <p class="offering-card__desc">{o.description}</p>
+        </div>
+      ))}
+    </div>
+  </SplitSection>
+</BaseLayout>

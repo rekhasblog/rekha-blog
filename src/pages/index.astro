@@ -1,35 +1,36 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SplitSection from "../components/SplitSection.astro";
+import { site } from "../data/site";
+import { offerings } from "../data/offerings";
+import { getCollection } from "astro:content";
 
-const postFiles = import.meta.glob('./blog/*.md', { eager: true });
-const posts = Object.values(postFiles);
-
-// Sort posts newest first
-const sorted = posts.sort((a, b) =>
-  new Date(b.frontmatter.date) - new Date(a.frontmatter.date)
+const featured = offerings.slice(0, 3);
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
 );
+const latestPost = posts[0];
 ---
 
-<BaseLayout title="rekha's blog">
-  <div class="feed">
-    <p class="feed-title">Recent posts</p>
+<BaseLayout title="Home">
+  <SplitSection eyebrow="Welcome">
+    <p slot="sidebar">
+This is my little corner of the internet where I explore spirituality in the modern world.<br>
+Through my writing and intuitive readings, I invite you to pause, look within, and reflect with me.<br>
+My intention is to help you reconnect with your inner voice so it becomes the one you trust above all.
+    </p>
+	
+<div class="hero-main">
+  <h2>{site.tagline}</h2>
+  <p>There are times in life when a different perspective can bring illumination and change everything.</p>
+  <p>My intuitive readings blend tarot and playing cards to offer reflection and clarity when you're moving through a season of uncertainty. I don't believe a reading should take your power away or tell you what your future has decided for you. <i>You</i> decide your future. But in order to do that, you need an opportunity to slow down and look within.</p>
+  <p>Come with a question or simply a sense that you're ready to step into something new.</p>
+  <p>Together we'll explore the messages and patterns in your energy. My goal is to reflect a fresh perspective so you can move forward with greater clarity and trust in yourself.</p>
+  <p>
+    <div class="hero-main__cta">
+    <a href="/offerings" class="btn card-cut-sm">Readings</a>
+</p>
+</div>
 
-    {sorted.map(post => (
-      <a href={post.url} class="post-card">
-        {post.frontmatter.tag && (
-          <p class="post-tag">{post.frontmatter.tag}</p>
-        )}
-        <h2 class="post-title">{post.frontmatter.title}</h2>
-        {post.frontmatter.excerpt && (
-          <p class="post-excerpt">{post.frontmatter.excerpt}</p>
-        )}
-        <div class="post-meta">
-          <span>{post.frontmatter.date}</span>
-          {post.frontmatter.readTime && (
-            <span>{post.frontmatter.readTime}</span>
-          )}
-        </div>
-      </a>
-    ))}
-  </div>
+  </SplitSection>
 </BaseLayout>

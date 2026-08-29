@@ -1,3 +1,43 @@
 ---
-return Astro.redirect('/');
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import SplitSection from "../../components/SplitSection.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog")).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const [latest, ...rest] = posts;
+
+function formatDate(d: Date) {
+  return d.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" });
+}
 ---
+
+<BaseLayout title="Blog">
+  <SplitSection eyebrow="Blog">
+    <p slot="sidebar">
+      Reflections on spirituality, life, and everything inbetween.
+    </p>
+
+    {latest && (
+      <a class="blog-featured card-cut" href={`/blog/${latest.slug}`}>
+        <span class="eyebrow">Latest post</span>
+        <h2>{latest.data.title}</h2>
+        <p>{latest.data.excerpt}</p>
+        <time datetime={latest.data.date.toISOString()}>{formatDate(latest.data.date)}</time>
+      </a>
+    )}
+
+    {rest.length > 0 && (
+      <div class="blog-list">
+        {rest.map((post) => (
+          <a class="blog-list-item" href={`/blog/${post.slug}`}>
+            <h3>{post.data.title}</h3>
+            <p>{post.data.excerpt}</p>
+            <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+          </a>
+        ))}
+      </div>
+    )}
+  </SplitSection>
+</BaseLayout>
